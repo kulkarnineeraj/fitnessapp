@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Enquiries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            width: 110%;
+            max-width: 1300px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .actions a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
+            th, td {
+                box-sizing: border-box;
+                width: 100%;
+                display: block;
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+            }
+            th::before, td::before {
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+            th::before {
+                content: attr(data-th);
+            }
+            td::before {
+                content: attr(data-th);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>All Enquiries</h1>
+    </header>
+
+    <div class="container">
+        <a href="/addEnquiry" class="button">Add Enquiry</a>
+        <a href="/addArea" class="button">Add Area</a>
+        <a href="/addProgram" class="button">Add Program</a>
+        <a href="/expenseList" class="button">Marketing Tracker</a>
+
+        <h1>List of Enquiries</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th data-th="ID">ID</th>
+                    <th data-th="First Name">First Name</th>
+                    <th data-th="Last Name">Last Name</th>
+                    <th data-th="Age">Age</th>
+                    <th data-th="Email">Email</th>
+                    <th data-th="Address">Address</th>
+                    <th data-th="Pincode">Pincode</th>
+                    <th data-th="Parent First Name">Parent First Name</th>
+                    <th data-th="Parent Last Name">Parent Last Name</th>
+                    <th data-th="Contact Number">Contact Number</th>
+                    <th data-th="Status">Status</th>
+                    <th data-th="Area">Area</th>
+                    <th data-th="Program">Program</th>
+                    <th data-th="Actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enquiry : ${enquiries}">
+                    <td th:text="${enquiry.id}" data-th="ID"></td>
+                    <td th:text="${enquiry.firstName}" data-th="First Name"></td>
+                    <td th:text="${enquiry.lastName}" data-th="Last Name"></td>
+                    <td th:text="${enquiry.age}" data-th="Age"></td>
+                    <td th:text="${enquiry.email}" data-th="Email"></td>
+                    <td th:text="${enquiry.address}" data-th="Address"></td>
+                    <td th:text="${enquiry.pincode}" data-th="Pincode"></td>
+                    <td th:text="${enquiry.firstNameOfPar}" data-th="Parent First Name"></td>
+                    <td th:text="${enquiry.lastNameOfPar}" data-th="Parent Last Name"></td>
+                    <td th:text="${enquiry.contactNumber}" data-th="Contact Number"></td>
+                    <td th:text="${enquiry.status}" data-th="Status"></td>
+                    <td th:text="${enquiry.area.name}" data-th="Area"></td>
+                    <td th:text="${enquiry.program.name}" data-th="Program"></td>
+                    <td class="actions" data-th="Actions">
+                        <a th:href="@{/editEnquiry/{id}(id=${enquiry.id})}">Edit</a>
+                        <a th:href="@{/deleteEnquiry/{id}(id=${enquiry.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Area</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0c23f0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #1448d8;
+        }
+        .area-list {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .area-list h2 {
+            margin-top: 0;
+        }
+        .area-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .area-item:last-child {
+            border-bottom: none;
+        }
+        .delete-link {
+            color: #ff4d4d;
+            text-decoration: none;
+        }
+        .delete-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Area</h1>
+    <form th:action="@{/area}" th:object="${area}" method="post">
+        <label for="name">Area Name</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <button type="submit">Save</button>
+    </form>
+
+    <div class="area-list">
+        <h2>Area List</h2>
+        <div th:each="area : ${areas}" class="area-item">
+            <p th:text="${area.name}"></p>
+            <a th:href="@{/deleteArea/{id}(id=${area.idofarea})}" class="delete-link" onclick="return confirm('Are you sure you want to delete this area?');">Delete</a>
+        </div>
+    </div>
+</body>
+</html>
