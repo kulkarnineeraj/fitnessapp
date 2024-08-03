@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 40px; /* Increased padding for more space */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Increased max-width */
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px; /* Added margin to ensure spacing from other elements */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin: 0 0 20px 0; /* Adjusted margin to increase space below heading */
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 15px; /* Increased padding for more space */
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: calc(100% - 20px); /* Adjusted width to accommodate padding */
+            padding: 10px; /* Increased padding for input fields */
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px; /* Increased padding for the submit button */
+            margin: 15px 0; /* Increased margin for better spacing */
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px; /* Increased font size */
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Marketing Expense</h2>
+    <form th:action="@{/expenses}" th:object="${expense}" method="post">
+        <table>
+            <tr>
+                <td>Month:</td>
+                <td><input type="text" name="month"  th:field="*{month}"/></td>
+            </tr>
+            <tr>
+                <td>Year:</td>
+                <td><input type="number" name="year" th:field="*{year}" /></td>
+            </tr>
+            <tr>
+                <td>Activity:</td>
+                <td><input type="text" name="activity"th:field="*{activity}" /></td>
+            </tr>
+            <tr>
+                <td>Execution Date:</td>
+                <td><input type="date" name="execution_date" th:field="*{execution_date}"/></td>
+            </tr>
+            <tr>
+                <td>Expense:</td>
+                <td><input type="number" step="0.01" name="expense" th:field="*{expense}"/></td>
+            </tr>
+            <tr>
+                <td>Motive:</td>
+                <td><input type="text" name="motive"th:field="*{motive}" /></td>
+            </tr>
+            <tr>
+                <td>Result:</td>
+                <td><input type="text" name="result"th:field="*{result}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

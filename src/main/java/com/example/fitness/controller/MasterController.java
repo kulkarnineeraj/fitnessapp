@@ -1,0 +1,188 @@
+package com.example.fitness.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.example.fitness.model.Area;
+import com.example.fitness.model.Enquiry;
+import com.example.fitness.model.Expense;
+import com.example.fitness.model.Program;
+import com.example.fitness.service.AreaService;
+import com.example.fitness.service.EnquiryService;
+import com.example.fitness.service.ExpenseService;
+import com.example.fitness.service.ProgramService;
+
+@Controller
+public class MasterController {
+
+    @Autowired
+    private EnquiryService enquiryService;
+
+    @Autowired
+    private AreaService areaService;
+
+    @Autowired
+    private ProgramService programService;
+
+    @Autowired
+    private ExpenseService expenseService;
+
+    @RequestMapping("/")
+    public String allEnquiries(Model model) {
+        List<Enquiry> enquiries = enquiryService.findAll();
+        model.addAttribute("enquiries", enquiries);
+        return "allEnquiries";
+    }
+
+    @RequestMapping("/addExpense")
+    public ModelAndView addExpense(Model model) {
+        ModelAndView mav = new ModelAndView("expense");
+        mav.addObject("expense", new Expense());
+        return mav;
+    }
+
+    @GetMapping("/addEnquiry")
+    public String showAddEnquiryForm(Model model) {
+        List<Area> areas = areaService.findAll();
+        List<Program> programs = programService.findAll();
+        model.addAttribute("areas", areas);
+        model.addAttribute("programs", programs);
+        model.addAttribute("enquiry", new Enquiry());
+        return "addEnquiry";
+    }
+
+    @PostMapping("/enquiry")
+    public String saveEnquiry(@ModelAttribute("enquiry") Enquiry enquiry) {
+        enquiryService.save(enquiry);
+        return "redirect:/";
+    }
+
+    @GetMapping("/editEnquiry/{id}")
+    public String showEditEnquiryForm(@PathVariable("id") long id, Model model) {
+        Enquiry enquiry = enquiryService.findById(id);
+        List<Area> areas = areaService.findAll();
+        List<Program> programs = programService.findAll();
+        model.addAttribute("areas", areas);
+        model.addAttribute("programs", programs);
+        model.addAttribute("enquiry", enquiry);
+        return "addEnquiry";
+    }
+
+    @PostMapping("/updateEnquiry")
+    public String updateEnquiry(@ModelAttribute("enquiry") Enquiry enquiry) {
+        enquiryService.save(enquiry);
+        return "redirect:/";
+    }
+
+    @GetMapping("/deleteEnquiry/{id}")
+    public String deleteEnquiry(@PathVariable("id") long id) {
+        enquiryService.delete(id);
+        return "redirect:/";
+    }
+
+    // @GetMapping("/addArea")
+    // public String showAddAreaForm(Model model) {
+    // model.addAttribute("area", new Area());
+    // return "addArea"; // Template for adding an area
+    // }
+    @GetMapping("/addArea")
+    public String showAddAreaForm(Model model) {
+        List<Area> areas = areaService.findAll();
+        model.addAttribute("area", new Area());
+        model.addAttribute("areas", areas);
+        return "addArea";
+    }
+
+    @GetMapping("/deleteArea/{idofarea}")
+    public String deleteArea(@PathVariable("idofarea") Long idofarea) {
+        areaService.delete(idofarea);
+        return "redirect:/";
+    }
+
+    @PostMapping("/area")
+    public String saveArea(@ModelAttribute("area") Area area) {
+        areaService.save(area);
+        return "redirect:/";
+    }
+
+    @GetMapping("/addProgram")
+    public String showAddProgramForm(Model model) {
+        List<Program> programs = programService.findAll();
+        model.addAttribute("program", new Program());
+        model.addAttribute("programs", programs);
+        return "addProgram";
+    }
+
+    @PostMapping("/program")
+    public String saveProgram(@ModelAttribute("program") Program program) {
+        programService.save(program);
+        return "redirect:/";
+    }
+
+    @GetMapping("/deleteProgram/{idofprog}")
+    public String deleteProgram(@PathVariable("idofprog") Long idofprog) {
+        programService.delete(idofprog);
+        return "redirect:/";
+    }
+
+    // eXPENSE CONTROLLER STARTS HERE
+
+    @GetMapping("/expenseList")
+    public String home(Model model) {
+        List<Expense> expenses = expenseService.findAll();
+        model.addAttribute("expenses", expenses);
+        return "home";
+    }
+
+    @GetMapping("/expense")
+    public String showAddExpenseForm(Model model) {
+        model.addAttribute("expense", new Expense());
+        return "expense";
+    }
+
+    @PostMapping(value = "/expenses")
+    public String save(@ModelAttribute("expense") Expense expense, Model model) {
+        expenseService.save(expense);
+        List<Expense> expenses = expenseService.findAll();
+        model.addAttribute("expenses", expenses);
+        return "home";//
+    }
+
+    @GetMapping(value = "/expense/{id}/delete")
+    public String delete(@PathVariable("id") Long id, Model model) {
+        expenseService.delete(id);
+        List<Expense> expenses = expenseService.findAll();
+        model.addAttribute("expenses", expenses);
+        return "home";
+    }
+
+    @GetMapping("/expense/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Expense expense = expenseService.findById(id);
+        if (expense != null) {
+            model.addAttribute("expense", expense);
+            return "expense";
+        } else {
+            return "redirect:/"; // Redirect to a list or error page if not found
+        }
+    }
+
+    @PostMapping("/expense/edited/{id}")
+    public String updateExpense(@PathVariable("id") Long id, @ModelAttribute("expense") Expense expense) {
+        expense.setId(id);
+        expenseService.save(expense);
+        return "home";
+    }
+
+}

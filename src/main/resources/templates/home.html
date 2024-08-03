@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+        }
+        h1 {
+            color: #4CAF50; /* Light green color */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .centered {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            margin: 0 auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .add-expense-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .add-expense-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this expense?');
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Marketing Tracker</h1>
+
+    <div class="centered">
+        <a href="/expense" class="add-expense-btn">Add Activity</a>
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Activity</th>
+                    <th>Execution Date</th>
+                    <th>Expense</th>
+                    <th>Motive</th>
+                    <th>Result</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="expense : ${expenses}">
+                    <td th:text="${expense.month}"></td>
+                    <td th:text="${expense.activity}"></td>
+                    <td th:text="${expense.execution_date}"></td>
+                    <td th:text="${expense.expense}"></td>
+                    <td th:text="${expense.motive}"></td>
+                    <td th:text="${expense.result}"></td>
+                    <td class="actions">
+                        <a th:href="@{/expense/edit/{id}(id=${expense.id})}" class="edit-link">Edit</a>
+                        <a th:href="@{/expense/{id}/delete(id=${expense.id})}" onclick="return confirmDelete()">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
