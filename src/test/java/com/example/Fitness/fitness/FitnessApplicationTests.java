@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(classes=FitnessApplicationTests.class)
 @SpringBootTest
+@SpringBootApplication
 class FitnessApplicationTests {
 
 	@Test

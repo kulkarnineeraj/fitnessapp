@@ -1,96 +1,423 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Enquiry</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input, select {
-            width: 100%;
+    <meta charset="ISO-8859-1">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Edit meeting form</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Templa/te Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+ 	/* Regular style for the back button */
+.btn-secondary {
+    /* Add any regular styling you want for the button */
+    /* For example, you can set a fixed width */
+    width: 120px;
+}
+
+/* Responsive styling for the back button on smaller screens*/
+@media (max-width: 360px) {
+    .btn-secondary {
+        /* Adjust styling for smaller screens */
+        /* For example, you can set a smaller width */
+        width: 100px;
+    }
+}
+ 	
+ 	</style>
+<!-- change by anant  -->
+
+
+<style type="text/css">
+    li {
+        font-size: large;
+    }
+
+    a {
+        font-size: small;
+    }
+
+    div {
+        font-size: 18px;
+        font-family: Verdana;
+    }
+
+    body {
+        font-size: 12px;
+        background-color: white;
+    }
+
+    .row {
+        margin: auto;
+    }
+
+    .navbar {
+        width: 120%;
+        background-color: #000080;
+    }
+
+    .btn {
+        width: 100px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+
+    .navbar-toggler {
+        background-color: white;
+        color: white;
+    }
+
+    .navbar-nav {
+        justify-content: flex-start;
+    }
+
+    #main {
+        margin-top: 10px;
+        padding: 20px 30px;
+        transition: all 0.3s;
+        margin-left: 50px;
+    }
+
+    @media (max-width: 6000px) {
+        #main {
             padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .actions a {
+        text-decoration: none;
+        color: #007bff;
+        margin-right: 10px;
+    }
+
+    .actions a:hover {
+        text-decoration: underline;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 12px 24px; /* Increased padding */
+        margin: 10px 0;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1.5em; /* Adjusted font size to match the button size */
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+
+
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="path/to/font-awesome/css/font-awesome.min.css">
+
 </head>
-<body>
-    <h1>Edit Enquiry</h1>
-    <form th:action="@{/updateEnquiry}" th:object="${enquiry}" method="post">
-        <input type="hidden" th:field="*{id}" />
-        
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" th:field="*{firstName}" required>
-        
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" th:field="*{lastName}" required>
-        
-        <label for="age">Age</label>
-        <input type="number" id="age" th:field="*{age}" required>
-        
-        <label for="email">Email</label>
-        <input type="email" id="email" th:field="*{email}" required>
-        
-        <label for="address">Address</label>
-        <input type="text" id="address" th:field="*{address}" required>
-        
-        <label for="pincode">Pincode</label>
-        <input type="text" id="pincode" th:field="*{pincode}" required>
-        
-        <label for="firstNameOfPar">Parent First Name</label>
-        <input type="text" id="firstNameOfPar" th:field="*{firstNameOfPar}" required>
-        
-        <label for="lastNameOfPar">Parent Last Name</label>
-        <input type="text" id="lastNameOfPar" th:field="*{lastNameOfPar}" required>
-        
-        <label for="contactNumber">Contact Number</label>
-        <input type="text" id="contactNumber" th:field="*{contactNumber}" required>
-        
-        <label for="status">Status</label>
-        <input type="text" id="status" th:field="*{status}" required>
-        
-        <label for="area">Area</label>
-        <select id="area" th:field="*{area}" required>
-            <option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.name}"></option>
-        </select>
-        
-        <label for="program">Program</label>
-        <select id="program" th:field="*{program}" required>
-            <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
-        </select>
-        
-        <button type="submit">Update</button>
-    </form>
+<!-- Changes done by Anant -->
+ <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" th:href="@{/}">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkoTHe6lh7nmflwzFYRp32OGCE_C4JqQCDgQ&s" width="30" height="30" alt="">
+            <span style="color: #f5f5f5;">Fun Fitness Blender</span>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #f5f5f5;">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <li><a class="dropdown-item" href="/addProgram">Add Program</a></li>
+                        <li><a class="dropdown-item" href="/addArea">Add Area</a></li>
+                        <li><a class="dropdown-item" href="/addMeeting">Add Meeting</a></li>
+                    </ul>
+                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addEnquiry" style="color: #f5f5f5;">Add Enquiry</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/expenseList" style="color: #f5f5f5;">Marketing Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/meetingList" style="color: #f5f5f5;">Meetings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reports" style="color: #f5f5f5;">Reports</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" style="color: #f5f5f5;">
+                        <i class="fa fa-sign-out fa-sm"></i> Home
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End of Navigation bar -->
+
+<!-- Starting of main page -->
+<body>   
+ <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Edit Enquiry</h1>
+        </div>
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <form th:action="@{/updateEnquiry}" th:object="${enquiry}" method="post" onsubmit="return validateForm()">
+                                        <input type="hidden" th:field="*{id}">
+                                        <!-- Error messages -->
+                                        <div class="error mb-4" th:if="${#fields.hasErrors()}">
+                                            <div th:each="err : ${#fields.errors('enquiry')}">
+                                                <p class="text-danger" th:text="${err}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="firstName" class="col-form-label">First Name:</label>
+                                                <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="lastName" class="col-form-label">Last Name:</label>
+                                                <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="age" class="col-form-label">Age:</label>
+                                                <input type="number" id="age" th:field="*{age}" class="form-control" min="1" max="120" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="email" class="col-form-label">Email:</label>
+                                                <input type="email" id="email" th:field="*{email}" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="address" class="col-form-label">Address:</label>
+                                                <input type="text" id="address" th:field="*{address}" class="form-control" required/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="pincode" class="col-form-label">Pincode:</label>
+                                                <input type="number" id="pincode" th:field="*{pincode}" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="firstNameOfPar" class="col-form-label">Parent's First Name (optional):</label>
+                                                <input type="text" id="firstNameOfPar" th:field="*{firstNameOfPar}" class="form-control"/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="lastNameOfPar" class="col-form-label">Parent's Last Name (optional):</label>
+                                                <input type="text" id="lastNameOfPar" th:field="*{lastNameOfPar}" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="area" class="col-form-label">Area:</label>
+                                                <select id="area" th:field="*{area}" class="form-control" required>
+                                                    <option value="" selected>Select Area</option>
+                                                    <option th:each="area : ${areas}" th:value="${area.idofarea}" th:text="${area.name}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="contactNumber" class="col-form-label">Contact Number:</label>
+                                                <input type="number" id="contactNumber" th:field="*{contactNumber}" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="status" class="col-form-label">Status:</label>
+                                                <select id="status" th:field="*{status}" class="form-control" required>
+                                                    <option value="">Select Status</option>
+                                                    <option value="Hot Enquiry">Hot Enquiry</option>
+                                                    <option value="Cold Enquiry">Cold Enquiry</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="program" class="col-form-label">Program:</label>
+                                                <select id="program" th:field="*{program}" class="form-control" required>
+                                                    <option value="" selected>Select Program</option>
+                                                    <option th:each="program : ${programs}" th:value="${program.idofprog}" th:text="${program.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="Dateofeq" class="col-form-label">Date of Enquiry:</label>
+                                                <div>
+                                                    <input type="date" id="Dateofeq" th:field="*{Dateofeq}" class="form-control" required/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="about" class="col-form-label">Interest:</label>
+                                                <div>
+                                                    <select id="about" th:field="*{about}" class="form-control" required>
+                                                        <option value="">Select Interest</option>
+                                                        <option value="New">New Enquiry</option>
+                                                        <option value="Enquiry only">Enquiry only</option>
+                                                        <option value="Joined">Joined</option>
+                                                        <option value="Left">Left</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                        <button type="submit" class="button">Save</button>
+                                    </div>
+
+                                    </form>
+                                    <script>
+                                        function validateForm() {
+                                            var Dateofeq = document.getElementById("Dateofeq").value;
+                                            var firstName = document.getElementById("firstName").value;
+                                            var lastName = document.getElementById("lastName").value;
+                                            var age = document.getElementById("age").value;
+                                            var email = document.getElementById("email").value;
+                                            var contactNumber = document.getElementById("contactNumber").value;
+                                            var namePattern = /^[a-zA-Z]+$/;
+                                            var emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+                                            var contactPattern = /^\d{10}$/;
+                                            var pincode = document.getElementById("pincode").value;
+                                            var pincodePattern = /^[0-9]{6}$/;
+
+                                            if (!namePattern.test(firstName)) {
+                                                alert("First name must contain only letters.");
+                                                return false;
+                                            }
+                                            if (!namePattern.test(lastName)) {
+                                                alert("Last name must contain only letters.");
+                                                return false;
+                                            }
+                                            if (age < 1 || age > 120) {
+                                                alert("Age must be between 1 and 120.");
+                                                return false;
+                                            }
+                                            if (!emailPattern.test(email)) {
+                                                alert("Email must be valid and end with @gmail.com.");
+                                                return false;
+                                            }
+                                            if (!contactPattern.test(contactNumber)) {
+                                                alert("Contact number must be a 10-digit number.");
+                                                return false;
+                                            }
+                                            if (!pincodePattern.test(pincode)) {
+                                                alert("Pincode must be a 6-digit number.");
+                                                return false;
+                                            }
+
+                                            return true;
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; 2024 Fun Fitness Blender. All Rights Reserved
+        </div>
+        <div class="credits">
+            Designed by TechEntrepreneurs
+        </div>
+    </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/chart.js/chart.umd.js"></script>
+  <script src="/vendor/echarts/echarts.min.js"></script>
+  <script src="/vendor/quill/quill.min.js"></script>
+  <script src="/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
 </body>
+
 </html>

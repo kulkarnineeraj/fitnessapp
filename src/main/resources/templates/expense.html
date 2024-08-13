@@ -1,121 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Tracker</title>
-    <style>
+    <meta charset="ISO-8859-1">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Fun Fitness Blender</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style type="text/css">
+        li {
+            font-size: large;
+        }
+
+        a {
+            font-size: small;
+        }
+
+        div {
+            font-size: 18px;
+            font-family: Verdana;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            box-sizing: border-box;
+            font-size: 12px;
+            background-color: white;
         }
-        .form-container {
-            background-color: #fff;
-            padding: 40px; /* Increased padding for more space */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px; /* Increased max-width */
-            width: 100%;
-            box-sizing: border-box;
-            margin: 20px; /* Added margin to ensure spacing from other elements */
+
+        .row {
+            margin: auto;
         }
-        h2 {
-            text-align: center;
-            color: #333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin: 0 0 20px 0; /* Adjusted margin to increase space below heading */
+
+        .navbar {
+            width: 120%;
+            background-color: #000080;
         }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+             font-size: 1.5em;
+        }
+
+        .navbar-toggler {
+            background-color: white;
+            color: white;
+        }
+
+        .navbar-nav {
+            justify-content: flex-start;
+        }
+
+        #main {
+            margin-top: 10px;
+            padding: 20px 30px;
+            transition: all 0.3s;
+            margin-left: 50px;
+        }
+
+        @media (max-width: 6000px) {
+            #main {
+                padding: 10px;
+            }
+        }
+
         table {
             width: 100%;
-        }
-        td {
-            padding: 15px; /* Increased padding for more space */
-        }
-        input[type="text"],
-        input[type="number"],
-        input[type="date"] {
-            width: calc(100% - 20px); /* Adjusted width to accommodate padding */
-            padding: 10px; /* Increased padding for input fields */
-            margin: 5px 0;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 15px; /* Increased padding for the submit button */
-            margin: 15px 0; /* Increased margin for better spacing */
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px; /* Increased font size */
-            transition: background-color 0.3s;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .back-link {
-            display: block;
-            text-align: center;
+            border-collapse: collapse;
             margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .actions a {
             text-decoration: none;
             color: #007bff;
+            margin-right: 10px;
         }
-        .back-link:hover {
+
+        .actions a:hover {
             text-decoration: underline;
         }
+
+       .button {
+        display: inline-block;
+        padding: 12px 24px; /* Increased padding */
+        margin: 10px 0;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 3.0em; /* Increased font size */
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+    .button {
+        display: inline-block;
+        padding: 14px 28px; /* Increased padding */
+        margin: 10px 0;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 3.0em; /* Increased font size */
+    }
+    .home-button {
+            background-color: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            line-height: normal;
+        }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+    .home-button:hover {
+            background-color: #e04444;
+    }
+    button, .home-button {
+            padding: 14px 28px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+               <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="form-container">
-    <h2>Marketing Expense</h2>
-    <form th:action="@{/expenses}" th:object="${expense}" method="post">
-        <table>
-            <tr>
-                <td>Month:</td>
-                <td><input type="text" name="month"  th:field="*{month}"/></td>
-            </tr>
-            <tr>
-                <td>Year:</td>
-                <td><input type="number" name="year" th:field="*{year}" /></td>
-            </tr>
-            <tr>
-                <td>Activity:</td>
-                <td><input type="text" name="activity"th:field="*{activity}" /></td>
-            </tr>
-            <tr>
-                <td>Execution Date:</td>
-                <td><input type="date" name="execution_date" th:field="*{execution_date}"/></td>
-            </tr>
-            <tr>
-                <td>Expense:</td>
-                <td><input type="number" step="0.01" name="expense" th:field="*{expense}"/></td>
-            </tr>
-            <tr>
-                <td>Motive:</td>
-                <td><input type="text" name="motive"th:field="*{motive}" /></td>
-            </tr>
-            <tr>
-                <td>Result:</td>
-                <td><input type="text" name="result"th:field="*{result}" /></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Save" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
+        <a class="navbar-brand" th:href="@{/}">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkoTHe6lh7nmflwzFYRp32OGCE_C4JqQCDgQ&s" width="30" height="30" alt="">
+            <span style="color: #f5f5f5;">Fun Fitness Blender</span>
+        </a>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #f5f5f5;">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <li><a class="dropdown-item" href="/addProgram">Add Program</a></li>
+                        <li><a class="dropdown-item" href="/addArea">Add Area</a></li>
+                    </ul>
+                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addEnquiry" style="color: #f5f5f5;">Add Enquiry</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/expenseList" style="color: #f5f5f5;">Marketing Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/meetingList" style="color: #f5f5f5;">Meetings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reports" style="color: #f5f5f5;">Reports</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" style="color: #f5f5f5;">
+                        <i class="fa fa-sign-out fa-sm"></i> Home
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Add Activity</h1>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <form th:action="@{/expenses}" th:object="${expense}" method="post" onsubmit="return validateForm()">
+                                    <!-- Error messages -->
+                                    <div class="error mb-4" th:if="${#fields.hasErrors()}">
+                                        <div th:each="err : ${#fields.errors('enquiry')}">
+                                            <p class="text-danger" th:text="${err}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="month" class="col-form-label">Month *</label>
+                                        <select id="month" th:field="*{month}" class="form-control" required>
+                                            <option value="">Select Month</option>
+						<option value="January">January</option>
+						<option value="February">February</option>
+						<option value="March">March</option>
+						<option value="April">April</option>
+						<option value="May">May</option>
+						<option value="June">June</option>
+						<option value="July">July</option>
+						<option value="August">August</option>
+						<option value="September">September</option>
+						<option value="October">October</option>
+						<option value="November">November</option>
+						<option value="December">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="year" class="col-form-label">Year *</label>
+                                        <input type="number" id="year" th:field="*{year}" class="form-control" required/>
+                                        </select>
+                                    </div>
+                                </div>
+                                 <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="activity" class="col-form-label">Activity *</label>
+                                        <input type="text" id="activity" th:field="*{activity}" class="form-control" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="Execution Date" class="col-form-label">Execution Date *</label>
+                                        <input type="date" id="execution_date" th:field="*{execution_date}" class="form-control" required/>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="expense" class="col-form-label">Expense *</label>
+                                        <input type="number" step="0.01" id="expense" th:field="*{expense}" class="form-control" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="motive" class="col-form-label">Motive *</label>
+                                        <input type="text" id="motive" th:field="*{motive}" class="form-control" required/>
+                                    </div>
+                                </div>
+                                
+
+                                    <!-- Interest -->
+                                    <div class="col-md-6">
+                                        <label for="result" class="col-form-label">Result:</label>
+                                        <td colspan="2"><input type="text" name="result" th:field="*{result}" /></td>
+
+                                    </div>
+                                </div>
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <a href="/expenseList" class="home-button">Back</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; 2024 Fun Fitness Blender. All Rights Reserved
+        </div>
+        <div class="credits">
+            Designed by TechEntrepreneurs
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <!-- Vendor JS Files -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="vendor/tinymce/tinymce.min.js"></script>
+    <script src="vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
 </body>
 </html>

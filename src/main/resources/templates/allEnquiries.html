@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Enquiries</title>
+    <title>Fun Fitness Blender</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
         }
         .container {
             width: 110%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: auto;
             padding: 20px;
             background: white;
@@ -99,7 +99,7 @@
 </head>
 <body>
     <header>
-        <h1>All Enquiries</h1>
+        <h1>Fun Fitness Blender</h1>
     </header>
 
     <div class="container">
@@ -107,6 +107,8 @@
         <a href="/addArea" class="button">Add Area</a>
         <a href="/addProgram" class="button">Add Program</a>
         <a href="/expenseList" class="button">Marketing Tracker</a>
+        <a href="/reports" class="button">Reports</a>
+
 
         <h1>List of Enquiries</h1>
 
@@ -123,6 +125,7 @@
                     <th data-th="Parent First Name">Parent First Name</th>
                     <th data-th="Parent Last Name">Parent Last Name</th>
                     <th data-th="Contact Number">Contact Number</th>
+                    <th data-th="Type of Enquiry">Type of Enquiry</th>
                     <th data-th="Status">Status</th>
                     <th data-th="Area">Area</th>
                     <th data-th="Program">Program</th>
@@ -141,7 +144,8 @@
                     <td th:text="${enquiry.firstNameOfPar}" data-th="Parent First Name"></td>
                     <td th:text="${enquiry.lastNameOfPar}" data-th="Parent Last Name"></td>
                     <td th:text="${enquiry.contactNumber}" data-th="Contact Number"></td>
-                    <td th:text="${enquiry.status}" data-th="Status"></td>
+                    <td th:text="${enquiry.status}" data-th="Type of Enquiry"></td>
+                    <td th:text="${enquiry.about}" data-th="Status"></td>
                     <td th:text="${enquiry.area.name}" data-th="Area"></td>
                     <td th:text="${enquiry.program.name}" data-th="Program"></td>
                     <td class="actions" data-th="Actions">

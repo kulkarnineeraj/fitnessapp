@@ -13,6 +13,7 @@ public interface EnquiryService {
     public void save(Enquiry enquiry);
     
     public void delete(long id) ;
+
     
     
 }

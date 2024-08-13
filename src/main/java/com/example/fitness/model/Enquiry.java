@@ -31,6 +31,24 @@ public class Enquiry {
     private String lastNameOfPar;
     private String contactNumber;
     private String status;
+    private String referred_by;
+    private String referred_personname;
+    public String getReferred_by() {
+        return referred_by;
+    }
+
+    public void setReferred_by(String referred_by) {
+        this.referred_by = referred_by;
+    }
+
+    public String getReferred_personname() {
+        return referred_personname;
+    }
+
+    public void setReferred_personname(String referred_personname) {
+        this.referred_personname = referred_personname;
+    }
+
     public String getAbout() {
         return about;
     }
