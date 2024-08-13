@@ -10,6 +10,7 @@ public class FitnessApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FitnessApplication.class, args);
+		
 	}
 
 }
